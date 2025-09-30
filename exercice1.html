@@ -5,40 +5,98 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <style>
+        .main {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-style: solid;
+            border-color: black;
+            flex-direction: column;
+
+        }
+
+        button {
+            margin: 20px;
+            height: 60px;
+            width: 120px;
+        }
+
+        p {
+            margin-left: 20px;
+        }
+
+        .comparer {
+            display: flex;
+
+        }
+
+        .score {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        #result {
+            margin-left: 5px;
+        }
+
+        #tour {
+            color: red;
+            font-style: oblique;
+            font-size: 30px;
+        }
+
+        #joueur {
+            font-size: 20px
+        }
+
+        #ordinateur {
+            font-size: 20px;
+        }
+    </style>
 </head>
 
 <body>
-    <button id="pierre">Pierre</button>
+    <div class="main">
+        <div class="bouton">
+            <button id="pierre">Pierre</button>
 
-    <button id="feuille">Feuille</button>
+            <button id="feuille">Feuille</button>
 
-    <button id="ciseaux">Ciseaux</button>
+            <button id="ciseaux">Ciseaux</button>
+        </div>
 
-    <p id="ordi"></p>
+        <div class="comparer">
+            <p id="ordi"></p>
+            <p id="result"> </p>
+        </div>
 
-    <p id="result"> </p>
+        <div class="score">
+            <p id="tour"></p>
+            <p id="joueur"> </p>
+            <p id="ordinateur"></p>
+        </div>
 
-    <p id="tour"></p>
+    </div>
 
-    <p id="joueur"> </p>
-
-    <p id="ordinateur"></p>
 </body>
 
 </html>
 
 <script>
+    // initialisation des valeurs 
     let p = "pierre"
     let f = "feuille"
     let c = "ciseaux"
     let aff = { joueur: 0, ordinateur: 0, tour: 0 };
-
     let tab = ["pierre", "feuille", "ciseaux"]
     let alea = Math.random()
     let ordi = ""
     console.log("alea vaut ", alea)
 
-
+    // lors de l'action click du bouton on compare l'élément p avec le choix de l'ordinateur, on augmente le nombre de tour et on relance le choix de l'ordinateur
     let choixP = document.getElementById("pierre")
     choixP.addEventListener("click", function () {
         console.log("Pierre");
@@ -47,6 +105,7 @@
         reset()
     });
 
+    // paeril mais avec l'élément f
     let choixF = document.getElementById("feuille")
     choixF.addEventListener("click", function () {
         console.log("Feuille")
@@ -55,13 +114,13 @@
         reset()
     });
 
+    // paeril mais avec l'élément c
     let choixC = document.getElementById("ciseaux")
     choixC.addEventListener("click", function () {
         console.log("Ciseaux")
         compare(c)
         TourDeJeu(aff)
         reset()
-
     });
 
     // permet de comparer le choix entre le joueur et l'ordinateur et d'ensuite augmenter le score de chacun selon le résultat
@@ -69,69 +128,69 @@
         console.log(alea);
         if (alea < 0.33) { // l'ordi fait pierre si alea en dessus de 0.33
             ordi = tab[0]
-            console.log("l'ordi a fait", ordi)
-            document.getElementById("ordi").innerText = "l'ordi joue pierre";
+            console.log("L'ordi a fait", ordi)
+            document.getElementById("ordi").innerText = "L'ordi joue pierre et ";
 
             if (x == tab[1]) { // si le choix du joueur est feuille il gagne 
-                console.log("le joueur a gagné")
+                console.log("Le joueur a gagné")
                 document.getElementById("result").innerText = "le joueur a gagné !";
                 aff.joueur = aff.joueur + 1;
-                document.getElementById("joueur").innerText = "score joueur : " + aff.joueur;
+                document.getElementById("joueur").innerText = "Score joueur : " + aff.joueur;
             }
             else if (x == ordi) { // si le joueur et l'ordi ont le même choix égalité
-                console.log("nul")
+                console.log("Nul")
                 document.getElementById("result").innerText = "il y a egalite"
             }
-            else {  
-                console.log("l'ordi a gagné")
+            else {
+                console.log("L'ordi a gagné")
                 document.getElementById("result").innerText = "l'ordi a gagné !"
                 aff.ordinateur = aff.ordinateur + 1
-                document.getElementById("ordinateur").innerText = "score ordinateur : " + aff.ordinateur;
+                document.getElementById("ordinateur").innerText = "Score ordinateur : " + aff.ordinateur;
             }
         }
 
         else if (alea > 0.33 && alea < 0.66) {  // l'ordinateur joue feuille si alea est entre 0.33 et 0.66
-            ordi = tab[1] 
-            console.log("l'ordi a fait", ordi)
-            document.getElementById("ordi").innerText = "l'ordi joue feuille";
+            ordi = tab[1]
+            console.log("L'ordi a fait", ordi)
+            document.getElementById("ordi").innerText = "L'ordi joue feuille et ";
             if (x == tab[2]) { // si le choix du joueur est ciseaux il gagne
-                console.log("le joueur a gagné")
+                console.log("Le joueur a gagné")
                 document.getElementById("result").innerText = "le joueur a gagné !!"
                 aff.joueur = aff.joueur + 1
-                document.getElementById("joueur").innerText = "score joueur : " + aff.joueur;
+                document.getElementById("joueur").innerText = "Score joueur : " + aff.joueur;
             }
             else if (x == ordi) {
-                console.log("nul")
+                console.log("Nul")
                 document.getElementById("result").innerText = "il y a egalite"
             }
             else {
                 console.log("l'ordi a gagné")
                 document.getElementById("result").innerText = "l'ordi a gagné !!"
                 aff.ordinateur = aff.ordinateur + 1
-                document.getElementById("ordinateur").innerText = "score ordinateur : " + aff.ordinateur;
+                document.getElementById("ordinateur").innerText = "Score ordinateur : " + aff.ordinateur;
             }
         }
 
         else if (alea > 0.66) { // l'ordi joue ciseau si alea est au dessus de 0.66
             ordi = tab[2]
-            console.log("l'ordi a fait", ordi)
-            document.getElementById("ordi").innerText = "l'ordi joue ciseaux";
+            console.log("L'ordi a fait", ordi)
+            document.getElementById("ordi").innerText = "l'ordi joue ciseaux et ";
 
             if (x == tab[0]) { // si le choix du joueur est pierre il gagne
-                console.log("le joueur a gagné")
+                console.log("Le joueur a gagné")
                 document.getElementById("result").innerText = "le joueur a gagné !!!"
                 aff.joueur = aff.joueur + 1
-                document.getElementById("joueur").innerText = "score joueur : " + aff.joueur;
+                document.getElementById("joueur").innerText = "Score joueur : " + aff.joueur;
             }
-            else if (x == ordi) { 
-                console.log("nul")
+            else if (x == ordi) {
+                console.log("Nul")
                 document.getElementById("result").innerText = "il y a egalite"
             }
             else {
-                console.log("l'ordi a gagné")
+                console.log("L'ordi a gagné")
                 document.getElementById("result").innerText = "l'ordi a gagné !!!"
                 aff.ordinateur = aff.ordinateur + 1
-                document.getElementById("ordinateur").innerText = "score ordinateur : " + aff.ordinateur;
+                document.getElementById("ordinateur").innerText = "Score ordinateur : " + aff.ordinateur;
             }
         }
     }

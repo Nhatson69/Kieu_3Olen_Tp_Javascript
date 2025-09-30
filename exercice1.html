@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <button id="pierre">Pierre</button>
+
+    <button id="feuille">Feuille</button>
+
+    <button id="ciseaux">Ciseaux</button>
+
+    <p id="ordi"></p>
+
+    <p id="result"> </p>
+
+    <p id="tour"></p>
+
+    <p id="joueur"> </p>
+
+    <p id="ordinateur"></p>
+</body>
+
+</html>
+
+<script>
+    let p = ""
+    let f = ""
+    let c = ""
+    let aff = { joueur: 0, ordinateur: 0, tour: 0 };
+
+    let tab = ["pierre", "feuille", "ciseaux"]
+    let alea = Math.random()
+    let ordi = ""
+    console.log("alea vaut ", alea)
+
+
+    let choixP = document.getElementById("pierre")
+    choixP.addEventListener("click", function () {
+        console.log("Pierre");
+        p = "pierre"
+        compare(p)
+        TourDeJeu(aff)
+        reset()
+    });
+
+    let choixF = document.getElementById("feuille")
+    choixF.addEventListener("click", function () {
+        console.log("Feuille")
+        f = "feuille"
+        compare(f)
+        TourDeJeu(aff)
+        reset()
+    });
+
+    let choixC = document.getElementById("ciseaux")
+    choixC.addEventListener("click", function () {
+        console.log("Ciseaux")
+        c = "ciseaux"
+        compare(c)
+        TourDeJeu(aff)
+        reset()
+
+    });
+
+    function compare(x) {
+        console.log(alea);
+        if (alea < 0.33) { // l'ordi fait pierre
+            ordi = tab[0]
+            console.log("l'ordi a fait", ordi)
+            document.getElementById("ordi").innerText = "l'ordi joue pierre";
+
+            if (x == tab[1]) { // si joueur fait ciseaux win
+                console.log("le joueur a gagné")
+                document.getElementById("result").innerText = "le joueur a gagné !";
+                aff.joueur = aff.joueur + 1;
+                document.getElementById("joueur").innerText = "score joueur : " + aff.joueur;
+
+            }
+            else if (x == ordi) {
+                console.log("nul")
+                document.getElementById("result").innerText = "il y a egalite"
+
+            }
+            else {
+                console.log("l'ordi a gagné")
+                document.getElementById("result").innerText = "l'ordi a gagné !"
+                aff.ordinateur = aff.ordinateur + 1
+                document.getElementById("ordinateur").innerText = "score ordinateur : " + aff.ordinateur;
+
+            }
+        }
+        else if (alea > 0.33 && alea < 0.66) {
+            ordi = tab[1]
+            console.log("l'ordi a fait", ordi)
+            document.getElementById("ordi").innerText = "l'ordi joue feuille";
+
+            if (x == "ciseaux") {
+                console.log("le joueur a gagné")
+                document.getElementById("result").innerText = "le joueur a gagné !!"
+                aff.joueur = aff.joueur + 1
+                document.getElementById("joueur").innerText = "score joueur : " + aff.joueur;
+
+
+            }
+            else if (x == ordi) {
+                console.log("nul")
+                document.getElementById("result").innerText = "il y a egalite"
+            }
+            else {
+                console.log("l'ordi a gagné")
+                document.getElementById("result").innerText = "l'ordi a gagné !!"
+                aff.ordinateur = aff.ordinateur + 1
+                document.getElementById("ordinateur").innerText = "score ordinateur : " + aff.ordinateur;
+
+
+            }
+        }
+        else if (alea > 0.66) { // l'ordi joue ciseau
+            ordi = tab[2]
+            console.log("l'ordi a fait", ordi)
+            document.getElementById("ordi").innerText = "l'ordi joue ciseaux";
+
+            if (x == "pierre") {
+                console.log("le joueur a gagné")
+                document.getElementById("result").innerText = "le joueur a gagné !!!"
+                aff.joueur = aff.joueur + 1
+                document.getElementById("joueur").innerText = "score joueur : " + aff.joueur;
+
+
+            }
+            else if (x == ordi) {
+                console.log("nul")
+                document.getElementById("result").innerText = "il y a egalite"
+            }
+            else {
+                console.log("l'ordi a gagné")
+                document.getElementById("result").innerText = "l'ordi a gagné !!!"
+                aff.ordinateur = aff.ordinateur + 1
+                document.getElementById("ordinateur").innerText = "score ordinateur : " + aff.ordinateur;
+
+
+            }
+        }
+    }
+
+    function TourDeJeu(obj) {
+        console.log("tour = ", obj.tour)
+        obj.tour = obj.tour + 1
+        console.log("tour = ", obj.tour)
+        document.getElementById("tour").innerText = "Tour : "+obj.tour
+    }
+
+    function reset() {
+        alea = Math.random()
+        console.log("le nouveau alea vaut ", alea)
+    }
+
+
+</script>

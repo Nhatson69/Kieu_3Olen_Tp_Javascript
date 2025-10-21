@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        /* Style global */
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            color: #333;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        #cv {
+            width: 80%;
+            max-width: 800px;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+        h1,
+        h2 {
+            color: #2c3e50;
+        }
+
+        #title {
+            font-size: 2em;
+            margin-bottom: 10px;
+        }
+
+        #subtitle {
+            font-size: 1.5em;
+            color: #34495e;
+        }
+
+        #profile {
+            margin-top: 20px;
+            font-size: 1.2em;
+            font-weight: bold;
+            background-color: red;
+            padding: 10px;
+            border-radius: 8px;
+            color: white;
+        }
+
+        #infos {
+            margin-top: 10px;
+            font-size: 1.1em;
+            color: #7f8c8d;
+            background-color: #ecf0f1;
+            padding: 10px;
+            border-radius: 8px;
+        }
+
+        #skills {
+            margin-top: 20px;
+            padding-left: 20px;
+        }
+
+        #skills li {
+            margin: 5px 0;
+            font-size: 1.1em;
+            list-style-type: disc;
+            color: #2ecc71;
+        }
+    </style>
+</head>
+
+<body>
+</body>
+
+</html>
+<script>
+
+    const profil = {
+        titre: "Recherche d'alternance Développeur web",
+        soustitre: "Développeur Web",
+        nom: "Kieu Clément",
+        age: "22 ans",
+        poste: "alternance",
+        info: "Je suis niveau B2 en Anglais, je ne dispose pas de véhicule et j'aime la musique ",
+        summary: 'Je suis une personne rigoureuse et investie qui saura déployer l’énergie et la capacité de travail nécessaires afin de réussir les missions confiées. J’ai une compréhension facile des choses. Je suis doté d’une aisance relationnelle et d’un esprit d’entraide. J’adore apprendre de nouvelles choses',
+        competence: ['HTML', 'CSS', 'JavaScript', 'PHP', 'LINUX'],
+        appel_ex: "https://api.github.com/users/Nhatson69",
+    }
+
+    fetch(profil.appel_ex).then(response => {
+        // Vérifier si la réponse est ok (code 200)
+        if (!response.ok) {
+            throw new Error('Erreur lors de la récupération des données');
+        }
+        return response.json(); // Convertir la réponse en JSON
+    })
+        .then(data => {
+            appel_externes.appendChild(document.createElement('h3')).innerText = "GitHub Information:";
+            appel_externes.appendChild(document.createElement('p')).innerText = data.login
+            appel_externes.appendChild(document.createElement('p')).innerText = data.name
+            appel_externes.appendChild(document.createElement('p')).innerText = data.public_repos
+            appel_externes.appendChild(document.createElement('p')).innerText = data.followers
+            appel_externes.appendChild(document.createElement('p')).appendChild(document.createElement('a')).innerHTML = data.html_url
+
+            /*document.getElementById("appel_externes").innerHTML = `<h3>GitHub Information:</h3>
+            <p><strong>Username:</strong> ${data.login}</p>
+            <p><strong>Name:</strong> ${data.name}</p>
+            <p><strong>Public Repos:</strong> ${data.public_repos}</p>
+            <p><strong>Followers:</strong> ${data.followers}</p>
+            <p><a href="${data.html_url}" target="_blank">Voir le profil GitHub</a></p>
+        `;*/
+        })
+
+
+    function afficherCV() {
+
+        const CV = document.createElement("div");
+        CV.id = "cv";
+
+        const title = document.createElement("h1");
+        title.id = "title";
+        title.innerText = profil.titre
+
+
+        const subtitle = document.createElement("h2");
+        subtitle.id = "subtitle";
+        subtitle.innerText = profil.soustitre
+
+        const profile = document.createElement("div");
+        profile.id = "profile";
+        profile.innerText = profil.nom + profil.age + " Poste : " + profil.poste;
+
+        const infos = document.createElement("div");
+        infos.id = "infos";
+        infos.innerText = profil.info
+
+        const summary = document.createElement('div');
+        summary.id = "summary";
+        summary.innerText = profil.summary
+
+        const skills = document.createElement("ul");
+        skills.id = "skills";
+        for (let i = 0; i < profil.competence.length; i++) {
+            const compt = document.createElement("li");
+            compt.innerText = profil.competence[i];
+            skills.appendChild(compt);
+        }
+
+        const appel_externes = document.createElement("div")
+        appel_externes.id = "appel_externes";
+
+
+        CV.appendChild(title);
+        CV.appendChild(subtitle);
+        CV.appendChild(profile);
+        CV.appendChild(infos);
+        CV.appendChild(summary);
+        CV.appendChild(skills);
+        CV.appendChild(appel_externes);
+
+        document.body.appendChild(CV);
+
+    }
+    afficherCV()
+</script>
